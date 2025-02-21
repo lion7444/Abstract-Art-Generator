@@ -1,0 +1,31 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+def generate_art(size=500, num_layers=10):
+    x = np.linspace(-2, 2, size)
+    y = np.linspace(-2, 2, size)
+    X, Y = np.meshgrid(x, y)
+    Z = np.zeros_like(X)
+    
+    for _ in range(num_layers):
+        freq_x = np.random.uniform(0.5, 3.0)
+        freq_y = np.random.uniform(0.5, 3.0)
+        phase_x = np.random.uniform(0, np.pi)
+        phase_y = np.random.uniform(0, np.pi)
+        amplitude = np.random.uniform(0.2, 1.0)
+        
+        Z += amplitude * np.sin(freq_x * X + phase_x) * np.cos(freq_y * Y + phase_y)
+    
+    plt.figure(figsize=(8, 8))
+    plt.imshow(Z, cmap=np.random.choice(['plasma', 'viridis', 'inferno', 'magma', 'twilight']), origin='lower')
+    plt.axis('off')
+    
+    # Save the generated image
+    filename = f"abstract_art_{np.random.randint(1000)}.png"
+    plt.savefig(filename, dpi=300, bbox_inches='tight')
+    print(f"Image saved as {filename}")
+    
+    plt.show()
+
+if __name__ == "__main__":
+    generate_art()
